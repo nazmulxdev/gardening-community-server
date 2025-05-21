@@ -275,6 +275,15 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    // all active farmers data base
+
+    app.get("/activeGardeners", async (req, res) => {
+      const query = { status: "active" };
+      const cursor = gardenersData.find(query).limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
