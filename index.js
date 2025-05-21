@@ -37,6 +37,8 @@ async function run() {
 
     const gardenersData = dataBase.collection("gardenersData");
 
+    const gardenersTips = dataBase.collection("gardenersTips");
+
     // event data
 
     const eventSlides = [
@@ -282,6 +284,14 @@ async function run() {
       const query = { status: "active" };
       const cursor = gardenersData.find(query).limit(6);
       const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // gardeners tips post method
+
+    app.post("/gardenersTips", async (req, res) => {
+      const newTip = req.body;
+      const result = await gardenersTips.insertOne(newTip);
       res.send(result);
     });
   } finally {
