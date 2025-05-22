@@ -353,6 +353,21 @@ async function run() {
       const result = await gardenersTips.findOne(query);
       res.send(result);
     });
+
+    // Put method to update tip details
+    app.put("/tipsDetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const tipData = req.body;
+      const filter = {
+        _id: new ObjectId(id),
+      };
+      const updateDoc = {
+        $set: tipData,
+      };
+      const options = { upsert: true };
+      const result = await gardenersTips.updateOne(filter, updateDoc, options);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
