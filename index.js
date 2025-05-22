@@ -317,6 +317,29 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+    // get user's uploaded tips by users email
+    app.get("/tipsByUser", async (req, res) => {
+      const email = req.query.email;
+      console.log("user's email is", email);
+      if (!email) {
+        return res.status(400).send({ message: "Email not found" });
+      }
+
+      const query = { email: email };
+      const result = await gardenersTips.find(query).toArray();
+      res.send(result);
+    });
+
+    // get single tips by their id
+    app.get("/tipsDetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {
+        _id: new ObjectId(id),
+      };
+      const result = await gardenersTips.findOne(query);
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
