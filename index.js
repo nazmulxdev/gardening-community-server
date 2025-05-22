@@ -354,6 +354,23 @@ async function run() {
       res.send(result);
     });
 
+    // patch method
+    app.patch("/tipsDetails/:id", async (req, res) => {
+      const { id } = req.params;
+      const { totalLiked } = req.body;
+      console.log(id, totalLiked);
+      const filter = {
+        _id: new ObjectId(id),
+      };
+      const updateDoc = {
+        $set: { totalLiked },
+      };
+      const result = await gardenersTips.updateOne(filter, updateDoc);
+      res.send(result);
+    });
+
+  
+
     // Put method to update tip details
     app.put("/tipsDetails/:id", async (req, res) => {
       const id = req.params.id;
