@@ -298,8 +298,22 @@ async function run() {
     // gardeners  public tips get method from gardenersTips collection
 
     app.get("/gardenersTips/public", async (req, res) => {
-      const query = { availability: "public" };
-      const cursor = gardenersTips.find(query);
+      const difficultyLevel = req.query.difficulty;
+      const tipsDataBase = [{ $match: { availability: "public" } }];
+
+      if (difficultyLevel !== "") {
+        tipsDataBase.push(
+          {
+            $addFields: {
+              sortOrder: {
+                $cond: [{ $eq: ["$difficultyLevel", difficultyLevel] }, 0, 1],
+              },
+            },
+          },
+          { $sort: { sortOrder: 1 } }
+        );
+      }
+      const cursor = gardenersTips.aggregate(tipsDataBase);
       const result = await cursor.toArray();
       res.send(result);
     });
