@@ -331,6 +331,19 @@ async function run() {
       res.send(result);
     });
 
+    // delete tip shared by users
+
+    app.delete("/tipsByUser", async (req, res) => {
+      const { id, email } = req.query;
+      const query = {
+        _id: new ObjectId(id),
+        email: email,
+      };
+
+      const result = await gardenersTips.deleteOne(query);
+      res.send(result);
+    });
+
     // get single tips by their id
     app.get("/tipsDetails/:id", async (req, res) => {
       const id = req.params.id;
