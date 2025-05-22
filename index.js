@@ -369,7 +369,15 @@ async function run() {
       res.send(result);
     });
 
-  
+    // get method for top tending six most liked tips
+    app.get("/trendingTips", async (req, res) => {
+      const cursor = gardenersTips
+        .find({ availability: "public" })
+        .sort({ totalLiked: -1 })
+        .limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     // Put method to update tip details
     app.put("/tipsDetails/:id", async (req, res) => {
