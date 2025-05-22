@@ -294,6 +294,15 @@ async function run() {
       const result = await gardenersTips.insertOne(newTip);
       res.send(result);
     });
+
+    // gardeners  public tips get method from gardenersTips collection
+
+    app.get("/gardenersTips/public", async (req, res) => {
+      const query = { availability: "public" };
+      const cursor = gardenersTips.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
