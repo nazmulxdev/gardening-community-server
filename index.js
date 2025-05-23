@@ -11,7 +11,6 @@ app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@gardening-community-ser.kmaoglw.mongodb.net/?retryWrites=true&w=majority&appName=gardening-community-server`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -22,16 +21,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-
-    // starting code from here
-    // created event collection to show in the hero section
     const dataBase = client.db("gardeningCommunity");
     const eventCollection = dataBase.collection("eventCollection");
 
@@ -247,24 +236,15 @@ async function run() {
       },
     ];
 
-    const existingData = await eventCollection.estimatedDocumentCount();
-    if (existingData === 0) {
-      await eventCollection.insertMany(eventSlides);
-      console.log("event data is added to the dataBase");
-    } else {
-      console.log("event data is already exist");
-    }
-
-    const existingFarmer = await gardenersData.estimatedDocumentCount();
-    if (existingFarmer === 0) {
-      await gardenersData.insertMany(gardeners);
-      console.log("all gardeners data is added");
-    } else {
-      console.log("gardeners data already exist in the data base");
-    }
-
     // all events
     app.get("/eventCollection", async (req, res) => {
+      const existingData = await eventCollection.estimatedDocumentCount();
+      if (existingData === 0) {
+        await eventCollection.insertMany(eventSlides);
+        console.log("event data is added to the dataBase");
+      } else {
+        console.log("event data is already exist");
+      }
       const cursor = eventCollection.find();
       const result = await cursor.toArray();
       res.send(result);
@@ -273,6 +253,13 @@ async function run() {
     // all farmers data
 
     app.get("/gardenersData", async (req, res) => {
+      const existingFarmer = await gardenersData.estimatedDocumentCount();
+      if (existingFarmer === 0) {
+        await gardenersData.insertMany(gardeners);
+        console.log("all gardeners data is added");
+      } else {
+        console.log("gardeners data already exist in the data base");
+      }
       const cursor = gardenersData.find();
       const result = await cursor.toArray();
       res.send(result);
