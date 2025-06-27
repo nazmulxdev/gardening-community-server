@@ -361,7 +361,7 @@ async function run() {
       const cursor = gardenersTips
         .find({ availability: "public" })
         .sort({ totalLiked: -1 })
-        .limit(6);
+        .limit(8);
       const result = await cursor.toArray();
       res.send(result);
     });
