@@ -284,7 +284,7 @@ async function run() {
 
     // gardeners  public tips get method from gardenersTips collection
 
-    app.get("/gardenersTips/public", async (req, res) => {
+    app.get("/gardenersTips/dashboard/public", async (req, res) => {
       const difficultyLevel = req.query.difficulty;
       const tipsDataBase = [{ $match: { availability: "public" } }];
 
@@ -297,9 +297,43 @@ async function run() {
               },
             },
           },
-          { $sort: { sortOrder: 1 } }
+          { $sort: { sortOrder: 1 } },
         );
       }
+      const cursor = gardenersTips.aggregate(tipsDataBase);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // Update the existing endpoint to handle multiple filters
+    app.get("/gardenersTips/public", async (req, res) => {
+      const { difficulty, category, availability } = req.query;
+      const tipsDataBase = [];
+
+      // Base match for public tips
+      const matchStage = { availability: "public" };
+
+      // Add additional filters if provided
+      if (difficulty) matchStage.difficultyLevel = difficulty;
+      if (category) matchStage.category = category;
+      if (availability) matchStage.availability = availability;
+
+      tipsDataBase.push({ $match: matchStage });
+
+      // Add sorting by difficulty if specified
+      if (difficulty) {
+        tipsDataBase.push(
+          {
+            $addFields: {
+              sortOrder: {
+                $cond: [{ $eq: ["$difficultyLevel", difficulty] }, 0, 1],
+              },
+            },
+          },
+          { $sort: { sortOrder: 1 } },
+        );
+      }
+
       const cursor = gardenersTips.aggregate(tipsDataBase);
       const result = await cursor.toArray();
       res.send(result);
