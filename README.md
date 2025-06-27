@@ -34,17 +34,17 @@ This server is built using the Node.js runtime environment and the Express.js fr
 
 The server provides several API endpoints to manage the application's data. Here are some examples:
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/tips` | Retrieves a list of all public gardening tips. |
-| `GET` | `/tips/:id`| Retrieves the details of a specific tip by its ID. |
-| `POST`| `/tips` | Creates a new gardening tip (requires authentication). |
-| `PATCH`| `/tips/:id`| Updates an existing tip. |
-| `DELETE`| `/tips/:id`| Deletes a specific tip. |
-| `GET` | `/gardeners`| Retrieves a list of all gardeners. |
-| `POST` | `/users` | Creates a new user in the database. |
+| Method   | Endpoint     | Description                                            |
+| :------- | :----------- | :----------------------------------------------------- |
+| `GET`    | `/tips`      | Retrieves a list of all public gardening tips.         |
+| `GET`    | `/tips/:id`  | Retrieves the details of a specific tip by its ID.     |
+| `POST`   | `/tips`      | Creates a new gardening tip (requires authentication). |
+| `PATCH`  | `/tips/:id`  | Updates an existing tip.                               |
+| `DELETE` | `/tips/:id`  | Deletes a specific tip.                                |
+| `GET`    | `/gardeners` | Retrieves a list of all gardeners.                     |
+| `POST`   | `/users`     | Creates a new user in the database.                    |
 
-*(This is a sample list. You can expand it with all your actual endpoints.)*
+_(This is a sample list. You can expand it with all your actual endpoints.)_
 
 ---
 
@@ -63,10 +63,11 @@ The server provides several API endpoints to manage the application's data. Here
 ### **Dependencies Used**
 
 The following NPM packages are used in this server:
-* Express.js
-* cors
-* dotenv
-* mongodb
+
+- Express.js
+- cors
+- dotenv
+- mongodb
 
 ---
 
@@ -75,38 +76,45 @@ The following NPM packages are used in this server:
 Follow these steps to run the server on your local machine:
 
 **1. Clone the repository:**
+
 ```bash
 git clone [https://github.com/your-username/your-server-repository-name.git](https://github.com/your-username/your-server-repository-name.git)
 ```
 
 **2. Navigate to the project directory:**
+
 ```bash
 cd your-server-repository-name
 ```
 
 **3. Install NPM packages:**
+
 ```bash
 npm install
 ```
 
 **4. Set up environment variables:**
 Create a file named `.env` in the root directory of the project and add your MongoDB connection credentials.
+
 ```.env
 DB_USER=your_mongodb_username
 DB_PASS=your_mongodb_password
 ```
-*(Replace the values above with your own MongoDB Atlas credentials.)*
+
+_(Replace the values above with your own MongoDB Atlas credentials.)_
 
 **5. Run the server:**
 To start the server in development mode, run:
+
 ```bash
 npm run dev
 ```
+
 The server will start, typically on a local port like `http://localhost:5000`.
 
 ---
 
 ### **Relevant Links**
 
-* **Live Client Site:** [https://gardening-community-e4aad.web.app/](https://gardening-community-e4aad.web.app/)
-* **Client-Side Repository:** *[Add your client-side repository link here]*
+- **Live Client Site:** [https://gardening-community-e4aad.web.app/](https://gardening-community-e4aad.web.app/)
+- **Client-Side Repository:** [https://github.com/nazmulxdev/gardening-community-client](https://github.com/nazmulxdev/gardening-community-client/)
