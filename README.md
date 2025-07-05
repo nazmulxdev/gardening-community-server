@@ -6,6 +6,8 @@ This repository contains the backend server code for the "Green Circle" Gardenin
 
 [![Live Server URL](https://img.shields.io/badge/Live_API-final--gerdaning--server.vercel.app-blueviolet?style=for-the-badge)](https://final-gerdaning-server.vercel.app/)
 
+[![Client Repo](https://img.shields.io/badge/Client_Repo-GitHub-333?style=for-the-badge&logo=github)](https://github.com/nazmulxdev/gardening-community-client?tab=readme-ov-file)
+
 </div>
 
 ---
